@@ -11,11 +11,12 @@ public class Util {
     private static final String PASSWORD = "!@QWaszx12";
 
     public static Connection getConnection() {
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
-            return connection;
+        try {
+            return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
             System.err.println("Не удалось загурзить");
             throw new RuntimeException(e);
         }
     }
+
 }
