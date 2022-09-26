@@ -21,8 +21,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void createUsersTable() {
-
-        query = "CREATE TABLE users (\n" +
+        query = "CREATE TABLE IF NOT EXISTS users (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `name` VARCHAR(45) NULL,\n" +
                 "  `lastName` VARCHAR(45) NULL,\n" +
@@ -32,17 +31,19 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.executeUpdate();
             preparedStatement.close();
+            query = null;
         } catch (SQLException e) {
             System.err.println("Не удалось создать таблицу");
         }
     }
 
     public void dropUsersTable() {
-        query = "DROP TABLE users";
+        query = "DROP TABLE IF EXISTS users";
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.executeUpdate();
             preparedStatement.close();
+            query = null;
         } catch (SQLException e) {
             System.err.println("Не удалось удалить таблицу");
         }
@@ -57,6 +58,7 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
             preparedStatement.close();
+            query = null;
         } catch (SQLException e) {
             System.err.println("Не удалось сохранить юзера");
         }
@@ -69,6 +71,7 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
             preparedStatement.close();
+            query = null;
         } catch (SQLException e) {
             System.err.println("Не удалось удалить юзера");
         }
@@ -90,6 +93,7 @@ public class UserDaoJDBCImpl implements UserDao {
             }
             preparedStatement.close();
             resultSet.close();
+            query = null;
         } catch (SQLException e) {
             System.err.println("Не вывести список юзеров");
         }
@@ -102,6 +106,7 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.executeUpdate();
             preparedStatement.close();
+            query = null;
         } catch (SQLException e) {
             System.err.println("Не удалось удалить юзеров");
         }
