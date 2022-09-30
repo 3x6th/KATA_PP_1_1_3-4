@@ -21,17 +21,15 @@ public class UserDaoHibernateImpl implements UserDao {
     public void createUsersTable() {
         try (Session session = getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.createSQLQuery("CREATE TABLE IF NOT EXISTS users (\n" +
-                            "  id INT NOT NULL AUTO_INCREMENT,\n" +
-                            "  name VARCHAR(45) NULL,\n" +
-                            "  lastName VARCHAR(45) NULL,\n" +
-                            "  age TINYINT(20) NULL,\n" +
-                            "  PRIMARY KEY (id))")
+            session.createSQLQuery("CREATE TABLE IF NOT EXISTS users (" +
+                            "  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT," +
+                            "  names VARCHAR(45) NULL," +
+                            "  lastName VARCHAR(45) NULL," +
+                            "  age TINYINT(20) NULL)")
                     .addEntity(User.class)
                     .executeUpdate();
             transaction.commit();
         } catch (Exception e) {
-            assert transaction != null;
             transaction.rollback();
         }
     }
