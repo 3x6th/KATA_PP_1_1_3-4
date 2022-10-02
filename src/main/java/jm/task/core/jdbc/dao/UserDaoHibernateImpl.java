@@ -75,7 +75,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         try (Session session = getSessionFactory().openSession()) {
-            List<User> userList = session.createCriteria(User.class).list(); //session.createSQLQuery("SELECT * FROM users").list(); почему так не работает?
+            List<User> userList = session.createSQLQuery("SELECT * FROM users").addEntity(User.class).list();
             return userList;
         }
     }
