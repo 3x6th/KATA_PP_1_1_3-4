@@ -54,7 +54,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.save(new User(name, lastName, age));
             transaction.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            transaction.rollback();
         }
     }
 
@@ -68,7 +68,7 @@ public class UserDaoHibernateImpl implements UserDao {
             }
             transaction.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            transaction.rollback();
         }
     }
 
@@ -77,7 +77,10 @@ public class UserDaoHibernateImpl implements UserDao {
         try (Session session = getSessionFactory().openSession()) {
             List<User> userList = session.createSQLQuery("SELECT * FROM users").addEntity(User.class).list();
             return userList;
+        } catch (Exception e) {
+            transaction.rollback();
         }
+        return null;
     }
 
     @Override
@@ -88,7 +91,7 @@ public class UserDaoHibernateImpl implements UserDao {
                     .executeUpdate();
             transaction.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            transaction.rollback();
         }
     }
 }

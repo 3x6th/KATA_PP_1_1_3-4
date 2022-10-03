@@ -22,7 +22,7 @@ public class Main {
 
         userDao.removeUserById(7);
         userDao.getAllUsers();
-        userDao.cleanUsersTable();
-        userDao.dropUsersTable();
+//        userDao.cleanUsersTable();
+//        userDao.dropUsersTable();
     }
 }
